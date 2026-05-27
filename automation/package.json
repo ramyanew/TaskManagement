@@ -17,9 +17,9 @@
     "mcp:start": "npx @playwright/mcp@latest --port 3001"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.0",
-    "@playwright/mcp": "^0.0.20",
     "@axe-core/playwright": "^4.8.0",
+    "@playwright/mcp": "^0.0.75",
+    "@playwright/test": "^1.49.0",
     "better-sqlite3": "^11.0.0"
   }
 }

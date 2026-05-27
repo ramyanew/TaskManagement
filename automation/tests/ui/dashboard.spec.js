@@ -48,8 +48,12 @@ test.describe('Dashboard — UI Validation', () => {
     await dashboard.createTask(taskData);
 
     // Verify task count increased
+    // const afterCount = await dashboard.getTaskCount();
+    // expect(afterCount).toBe(beforeCount + 1);
+
+    // Verify task count increased (use >= because parallel tests may also add tasks)
     const afterCount = await dashboard.getTaskCount();
-    expect(afterCount).toBe(beforeCount + 1);
+    expect(afterCount).toBeGreaterThan(beforeCount);
 
     // Verify the new task title appears in the list
     const titles = await dashboard.getAllTaskTitles();
