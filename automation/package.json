@@ -1,0 +1,25 @@
+{
+  "name": "playwright-mcp-automation",
+  "version": "1.0.0",
+  "description": "Full-stack Playwright MCP Automation Framework — UI, API, DB, Log, Security, A11y, Performance",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test tests/ui/",
+    "test:api": "npx playwright test tests/api/",
+    "test:db": "npx playwright test tests/db/",
+    "test:logs": "npx playwright test tests/logs/",
+    "test:security": "npx playwright test tests/security/",
+    "test:a11y": "npx playwright test tests/accessibility/",
+    "test:perf": "npx playwright test tests/performance/",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "report": "npx playwright show-report",
+    "mcp:start": "npx @playwright/mcp@latest --port 3001"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@playwright/mcp": "^0.0.20",
+    "@axe-core/playwright": "^4.8.0",
+    "better-sqlite3": "^11.0.0"
+  }
+}

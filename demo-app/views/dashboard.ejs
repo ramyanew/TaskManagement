@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Task Manager</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- ── Top Navigation ─────────────────────────────────── -->
+  <nav class="navbar" data-testid="navbar">
+    <div class="nav-brand" data-testid="nav-brand">Task Manager</div>
+    <div class="nav-user">
+      <span data-testid="current-user">
+        <strong><%= user.username %></strong> (<%= user.role %>)
+      </span>
+      <form method="POST" action="/logout" style="display:inline">
+        <button type="submit" class="btn btn-sm btn-outline" data-testid="logout-button">Logout</button>
+      </form>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <!-- ── Stats Cards ────────────────────────────────── -->
+    <div class="stats-row" data-testid="stats-row">
+      <div class="stat-card" data-testid="stat-total">
+        <div class="stat-number"><%= stats.total %></div>
+        <div class="stat-label">Total Tasks</div>
+      </div>
+      <div class="stat-card stat-todo" data-testid="stat-todo">
+        <div class="stat-number"><%= stats.todo %></div>
+        <div class="stat-label">To Do</div>
+      </div>
+      <div class="stat-card stat-progress" data-testid="stat-in-progress">
+        <div class="stat-number"><%= stats.inProgress %></div>
+        <div class="stat-label">In Progress</div>
+      </div>
+      <div class="stat-card stat-done" data-testid="stat-done">
+        <div class="stat-number"><%= stats.done %></div>
+        <div class="stat-label">Done</div>
+      </div>
+      <div class="stat-card stat-blocked" data-testid="stat-blocked">
+        <div class="stat-number"><%= stats.blocked %></div>
+        <div class="stat-label">Blocked</div>
+      </div>
+    </div>
+
+    <!-- ── Create Task Form ───────────────────────────── -->
+    <div class="create-task-section" data-testid="create-task-section">
+      <h2>Create New Task</h2>
+      <form method="POST" action="/tasks" class="task-form" data-testid="create-task-form">
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="title">Title *</label>
+            <input type="text" id="title" name="title" data-testid="task-title-input"
+              placeholder="What needs to be done?" required>
+          </div>
+          <div class="form-group flex-1">
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority" data-testid="task-priority-select">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+              <option value="critical">Critical</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-2">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" data-testid="task-description-input"
+              placeholder="Add details..." rows="2"></textarea>
+          </div>
+          <div class="form-group flex-1">
+            <label for="assigned_to">Assign To</label>
+            <select id="assigned_to" name="assigned_to" data-testid="task-assignee-select">
+              <option value="">Unassigned</option>
+              <% users.forEach(u => { %>
+                <option value="<%= u.id %>"><%= u.username %></option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label for="due_date">Due Date</label>
+            <input type="date" id="due_date" name="due_date" data-testid="task-duedate-input">
+          </div>
+          <div class="form-group flex-1" style="display:flex;align-items:flex-end;">
+            <button type="submit" class="btn btn-primary" data-testid="create-task-button">
+              + Create Task
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- ── Task List ──────────────────────────────────── -->
+    <div class="task-list-section" data-testid="task-list-section">
+      <h2>All Tasks (<span data-testid="task-count"><%= tasks.length %></span>)</h2>
+
+      <% if (tasks.length === 0) { %>
+        <div class="empty-state" data-testid="empty-state">
+          <p>No tasks yet. Create your first task above!</p>
+        </div>
+      <% } else { %>
+        <table class="task-table" data-testid="task-table" role="table" aria-label="Task list">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Priority</th>
+              <th>Assigned To</th>
+              <th>Due Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tasks.forEach(task => { %>
+              <tr data-testid="task-row-<%= task.id %>" class="task-row">
+                <td data-testid="task-id"><%= task.id %></td>
+                <td data-testid="task-title"><%= task.title %></td>
+                <td>
+                  <form method="POST" action="/tasks/<%= task.id %>/status" style="display:inline">
+                    <select name="status" data-testid="task-status-<%= task.id %>"
+                      class="status-badge status-<%= task.status %>"
+                      onchange="this.form.submit()">
+                      <option value="todo" <%= task.status === 'todo' ? 'selected' : '' %>>To Do</option>
+                      <option value="in-progress" <%= task.status === 'in-progress' ? 'selected' : '' %>>In Progress</option>
+                      <option value="done" <%= task.status === 'done' ? 'selected' : '' %>>Done</option>
+                      <option value="blocked" <%= task.status === 'blocked' ? 'selected' : '' %>>Blocked</option>
+                    </select>
+                  </form>
+                </td>
+                <td>
+                  <span class="priority-badge priority-<%= task.priority %>" data-testid="task-priority-<%= task.id %>">
+                    <%= task.priority %>
+                  </span>
+                </td>
+                <td data-testid="task-assignee-<%= task.id %>"><%= task.assigned_username || 'Unassigned' %></td>
+                <td data-testid="task-due-<%= task.id %>"><%= task.due_date || '—' %></td>
+                <td>
+                  <% if (user.role === 'admin') { %>
+                    <form method="POST" action="/tasks/<%= task.id %>/delete" style="display:inline"
+                      onsubmit="return confirm('Delete this task?')">
+                      <button type="submit" class="btn btn-sm btn-danger" data-testid="delete-task-<%= task.id %>">
+                        Delete
+                      </button>
+                    </form>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

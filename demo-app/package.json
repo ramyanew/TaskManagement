@@ -1,0 +1,19 @@
+{
+  "name": "task-manager-demo",
+  "version": "1.0.0",
+  "description": "Task Management Demo App — target application for Playwright MCP automation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "seed": "node database.js seed"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "better-sqlite3": "^11.0.0",
+    "ejs": "^3.1.9",
+    "bcryptjs": "^2.4.3",
+    "express-session": "^1.17.3",
+    "winston": "^3.11.0"
+  }
+}

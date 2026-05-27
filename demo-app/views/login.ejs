@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Task Manager</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 data-testid="app-title">Task Manager</h1>
+        <p>Sign in to manage your tasks</p>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert alert-error" data-testid="error-message" role="alert">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <form method="POST" action="/login" data-testid="login-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            data-testid="username-input"
+            placeholder="Enter your username"
+            required
+            autocomplete="username"
+            aria-label="Username"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            data-testid="password-input"
+            placeholder="Enter your password"
+            required
+            autocomplete="current-password"
+            aria-label="Password"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" data-testid="login-button">
+          Sign In
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Don't have an account? <a href="/register" data-testid="register-link">Register here</a></p>
+      </div>
+
+      <div class="demo-credentials" data-testid="demo-credentials">
+        <p><strong>Demo Credentials:</strong></p>
+        <p>Admin: admin / admin123</p>
+        <p>User: testuser / user123</p>
+        <p>Viewer: viewer / viewer123</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register — Task Manager</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 data-testid="register-title">Create Account</h1>
+        <p>Join Task Manager to get started</p>
+      </div>
+
+      <% if (error) { %>
+        <div class="alert alert-error" data-testid="error-message" role="alert">
+          <%= error %>
+        </div>
+      <% } %>
+
+      <form method="POST" action="/register" data-testid="register-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" data-testid="reg-username"
+            placeholder="Choose a username" required minlength="3" aria-label="Username">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" data-testid="reg-email"
+            placeholder="your@email.com" required aria-label="Email">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" data-testid="reg-password"
+            placeholder="Minimum 6 characters" required minlength="6" aria-label="Password">
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" data-testid="reg-confirm-password"
+            placeholder="Re-enter password" required aria-label="Confirm Password">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full" data-testid="register-button">
+          Create Account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a href="/login" data-testid="login-link">Sign in</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

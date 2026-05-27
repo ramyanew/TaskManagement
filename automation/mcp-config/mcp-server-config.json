@@ -1,0 +1,69 @@
+{
+  "// WHAT IS THIS FILE?": "Playwright MCP server configuration",
+  "// HOW IT WORKS": "The MCP server exposes browser actions (navigate, click, type, screenshot) as tools that AI assistants (Claude Desktop, VS Code Copilot, Cursor) can call using natural language",
+  "// SETUP": "Copy the relevant section to your AI tool's config file",
+
+  "claude_desktop_config": {
+    "// FILE LOCATION": "Windows: %APPDATA%/Claude/claude_desktop_config.json | Mac: ~/Library/Application Support/Claude/claude_desktop_config.json",
+    "mcpServers": {
+      "playwright": {
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"],
+        "env": {
+          "DISPLAY": ":0"
+        }
+      }
+    }
+  },
+
+  "vscode_settings_json": {
+    "// FILE LOCATION": ".vscode/mcp.json in your project root, or User Settings JSON",
+    "mcp": {
+      "servers": {
+        "playwright": {
+          "command": "npx",
+          "args": ["@playwright/mcp@latest"],
+          "env": {
+            "DISPLAY": ":0"
+          }
+        }
+      }
+    }
+  },
+
+  "cursor_config": {
+    "// FILE LOCATION": "Cursor Settings > MCP",
+    "mcpServers": {
+      "playwright": {
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"]
+      }
+    }
+  },
+
+  "available_mcp_tools": [
+    "browser_navigate — Navigate to a URL",
+    "browser_click — Click an element (uses accessibility tree)",
+    "browser_type — Type text into an input",
+    "browser_screenshot — Take a screenshot",
+    "browser_wait — Wait for page load or element",
+    "browser_select_option — Select dropdown option",
+    "browser_hover — Hover over an element",
+    "browser_drag — Drag and drop",
+    "browser_resize — Resize browser window",
+    "browser_handle_dialog — Accept/dismiss alerts",
+    "browser_tab_new — Open new tab",
+    "browser_tab_close — Close current tab",
+    "browser_console_messages — Read console output"
+  ],
+
+  "example_natural_language_commands": [
+    "Navigate to http://localhost:3000/login",
+    "Type 'admin' into the username field",
+    "Type 'admin123' into the password field",
+    "Click the Sign In button",
+    "Take a screenshot of the dashboard",
+    "Click the Create Task button",
+    "Verify the page shows 'Task Manager' heading"
+  ]
+}

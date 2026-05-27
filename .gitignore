@@ -1,0 +1,8 @@
+node_modules/
+demo-app/task-manager.db
+demo-app/logs/
+automation/test-results/
+automation/playwright-report/
+automation/fixtures/auth/*.json
+.DS_Store
+Thumbs.db
