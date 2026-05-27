@@ -125,7 +125,8 @@
                 <td data-testid="task-title"><%= task.title %></td>
                 <td>
                   <form method="POST" action="/tasks/<%= task.id %>/status" style="display:inline">
-                    <select name="status" data-testid="task-status-<%= task.id %>"
+                   <select name="status" data-testid="task-status-<%= task.id %>"
+                      aria-label="Task status for <%= task.title %>"
                       class="status-badge status-<%= task.status %>"
                       onchange="this.form.submit()">
                       <option value="todo" <%= task.status === 'todo' ? 'selected' : '' %>>To Do</option>

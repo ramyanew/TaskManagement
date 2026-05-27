@@ -221,10 +221,11 @@ body {
   text-transform: uppercase;
 }
 
-.priority-low { background: #f0f9ff; color: #0284c7; }
+
 .priority-medium { background: #fefce8; color: #a16207; }
 .priority-high { background: #fff7ed; color: #c2410c; }
-.priority-critical { background: #fef2f2; color: #dc2626; }
+.priority-critical { background: #fef2f2; color: #991b1b; }
+.priority-low { background: #f0f9ff; color: #075985; }
 
 .empty-state {
   text-align: center;
